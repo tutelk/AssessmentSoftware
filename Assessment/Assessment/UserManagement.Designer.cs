@@ -31,12 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.GridView = new System.Windows.Forms.DataGridView();
-            this.Export = new System.Windows.Forms.Button();
-            this.Update = new System.Windows.Forms.Button();
+            this.ExportButton = new System.Windows.Forms.Button();
+            this.UpdateButton = new System.Windows.Forms.Button();
             this.MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.AddRowUp = new System.Windows.Forms.ToolStripMenuItem();
             this.AddRowDown = new System.Windows.Forms.ToolStripMenuItem();
             this.Delete = new System.Windows.Forms.ToolStripMenuItem();
+            this.RefreshButton = new System.Windows.Forms.Button();
+            this.Copy = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChooseAll = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.GridView)).BeginInit();
             this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -50,8 +53,9 @@
             this.GridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.GridView.BackgroundColor = System.Drawing.SystemColors.HighlightText;
             this.GridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.GridView.Location = new System.Drawing.Point(35, 87);
-            this.GridView.Margin = new System.Windows.Forms.Padding(4);
+            this.GridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.GridView.Location = new System.Drawing.Point(35, 88);
+            this.GridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.GridView.Name = "GridView";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.GridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -61,35 +65,40 @@
             this.GridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView_CellMouseDown);
             this.GridView.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.GridView_RowPostPaint);
             // 
-            // Export
+            // ExportButton
             // 
-            this.Export.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Export.Location = new System.Drawing.Point(640, 575);
-            this.Export.Name = "Export";
-            this.Export.Size = new System.Drawing.Size(109, 35);
-            this.Export.TabIndex = 4;
-            this.Export.Text = "导出";
-            this.Export.UseVisualStyleBackColor = true;
+            this.ExportButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportButton.Location = new System.Drawing.Point(779, 575);
+            this.ExportButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportButton.Name = "ExportButton";
+            this.ExportButton.Size = new System.Drawing.Size(109, 35);
+            this.ExportButton.TabIndex = 4;
+            this.ExportButton.Text = "导出";
+            this.ExportButton.UseVisualStyleBackColor = true;
+            this.ExportButton.Click += new System.EventHandler(this.Export_Click);
             // 
-            // Update
+            // UpdateButton
             // 
-            this.Update.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Update.Location = new System.Drawing.Point(261, 575);
-            this.Update.Name = "Update";
-            this.Update.Size = new System.Drawing.Size(109, 35);
-            this.Update.TabIndex = 5;
-            this.Update.Text = "更新";
-            this.Update.UseVisualStyleBackColor = true;
-            this.Update.Click += new System.EventHandler(this.Update_Click);
+            this.UpdateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.UpdateButton.Location = new System.Drawing.Point(131, 575);
+            this.UpdateButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.UpdateButton.Name = "UpdateButton";
+            this.UpdateButton.Size = new System.Drawing.Size(109, 35);
+            this.UpdateButton.TabIndex = 5;
+            this.UpdateButton.Text = "更新数据";
+            this.UpdateButton.UseVisualStyleBackColor = true;
+            this.UpdateButton.Click += new System.EventHandler(this.Update_Click);
             // 
             // MenuStrip
             // 
             this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ChooseAll,
+            this.Copy,
             this.AddRowUp,
             this.AddRowDown,
             this.Delete});
             this.MenuStrip.Name = "MenuStrip";
-            this.MenuStrip.Size = new System.Drawing.Size(154, 76);
+            this.MenuStrip.Size = new System.Drawing.Size(154, 124);
             // 
             // AddRowUp
             // 
@@ -112,14 +121,41 @@
             this.Delete.Text = "删除";
             this.Delete.Click += new System.EventHandler(this.Delete_Click);
             // 
+            // RefreshButton
+            // 
+            this.RefreshButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.RefreshButton.Location = new System.Drawing.Point(463, 575);
+            this.RefreshButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.Size = new System.Drawing.Size(109, 35);
+            this.RefreshButton.TabIndex = 6;
+            this.RefreshButton.Text = "刷新显示";
+            this.RefreshButton.UseVisualStyleBackColor = true;
+            this.RefreshButton.Click += new System.EventHandler(this.Refresh_Click);
+            // 
+            // Copy
+            // 
+            this.Copy.Name = "Copy";
+            this.Copy.Size = new System.Drawing.Size(153, 24);
+            this.Copy.Text = "复制";
+            this.Copy.Click += new System.EventHandler(this.Copy_Click);
+            // 
+            // ChooseAll
+            // 
+            this.ChooseAll.Name = "ChooseAll";
+            this.ChooseAll.Size = new System.Drawing.Size(153, 24);
+            this.ChooseAll.Text = "全选";
+            this.ChooseAll.Click += new System.EventHandler(this.ChooseAll_Click);
+            // 
             // UserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.Update);
-            this.Controls.Add(this.Export);
+            this.Controls.Add(this.RefreshButton);
+            this.Controls.Add(this.UpdateButton);
+            this.Controls.Add(this.ExportButton);
             this.Controls.Add(this.GridView);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UserManagement";
             this.Size = new System.Drawing.Size(1019, 641);
             this.Load += new System.EventHandler(this.UserManagement_Load);
@@ -132,12 +168,15 @@
         #endregion
 
         private System.Windows.Forms.DataGridView GridView;
-        private System.Windows.Forms.Button Export;
-        private System.Windows.Forms.Button Update;
+        private System.Windows.Forms.Button ExportButton;
+        private System.Windows.Forms.Button UpdateButton;
         private System.Windows.Forms.ContextMenuStrip MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem Delete;
         private System.Windows.Forms.ToolStripMenuItem AddRowUp;
         private System.Windows.Forms.ToolStripMenuItem AddRowDown;
+        private System.Windows.Forms.Button RefreshButton;
+        private System.Windows.Forms.ToolStripMenuItem ChooseAll;
+        private System.Windows.Forms.ToolStripMenuItem Copy;
 
 
 

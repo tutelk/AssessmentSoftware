@@ -12,7 +12,7 @@ create table _tbUser(
 工作单位 nvarchar(50),
 联系电话 nvarchar(20),
 权重 double,
-是否管理员 char(2),
+是否管理员 char enum('是','否') default '否',
 primary key(编号)
 );
 
@@ -27,16 +27,16 @@ primary key(编号)
 
 drop table if exists _tbAssessment;
 create table _tbAssessment(
-评估人 varchar(5) not null,
-评估节点 varchar(5) not null,
+评估人编号 varchar(5) not null,
+评估节点编号 varchar(5) not null,
 各级别隶属度 text,
 子节点判断矩阵 text,
 权重 double,
 隶属级别 varchar(20),
 可信度值 double,
-primary key(评估人,评估节点),
-foreign key(评估人) REFERENCES  _tbUser(编号) on delete cascade on update cascade,
-foreign key(评估节点) REFERENCES  _tbNode(编号) on delete cascade on update cascade
+primary key(评估人编号,评估节点编号),
+foreign key(评估人编号) REFERENCES  _tbUser(编号) on delete cascade on update cascade,
+foreign key(评估节点编号) REFERENCES  _tbNode(编号) on delete cascade on update cascade
 );
 
 DELIMITER |
@@ -50,9 +50,29 @@ begin
 	open _cursor;
 	fetch _cursor into userNumber,nodeNumber;
 	while stop is not null do
-		insert into _tbAssessment(评估人,评估节点)
+		insert into _tbAssessment(评估人编号,评估节点编号)
 		values (userNumber,nodeNumber);
 		fetch _cursor into userNumber,nodeNumber;
+	end while;
+	close _cursor;
+end|
+DELIMITER ;
+
+DELIMITER |
+create trigger whenInsertUser after insert on _tbUser for each row
+begin
+	declare userNumber varchar(5);
+	declare nodeNumber varchar(5);
+	declare stop int default 0;
+	declare _cursor cursor for select _tbNode.编号 from _tbNode;
+	declare continue handler for not found set stop=null;
+	open _cursor;
+	fetch _cursor into nodeNumber;
+	set userNumber=new.编号;   #在所有declare声明之前赋值不行
+	while stop is not null do
+		insert into _tbAssessment(评估人编号,评估节点编号)
+		values (userNumber,nodeNumber);
+		fetch _cursor into nodeNumber;
 	end while;
 	close _cursor;
 end|

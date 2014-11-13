@@ -13,7 +13,7 @@ namespace Assessment
 {
     public partial class Login : Form
     {
-        public String userName;
+        public string userName;
 
         public Login()
         {
@@ -31,7 +31,7 @@ namespace Assessment
             string userPwd = pwdTextBox.Text.ToString().Trim();
             string selectStr = "Select 姓名,密码 from _tbUser where  姓名= '" + userName + "'";
 
-            String connStr = PublicParms.ConnStr;
+            string connStr = PublicParms.ConnStr;
             MySqlConnection conn = new MySqlConnection(connStr);
             
             MySqlCommand cmd = new MySqlCommand(selectStr, conn);

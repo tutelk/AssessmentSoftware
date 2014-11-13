@@ -8,18 +8,19 @@ namespace Assessment
 {
     class PublicParms
     {
-        private static String userName;
-        public static String Uname
+        private static string userName;
+        public static string Uname
         {
             set { userName = value; }
             get { return userName; }
         }
 
-        private static String connString = "Database=testassessment;Data Source=localhost;User Id=LK;Password=123456;CharSet=utf8;port=3306";
+        private static string connString = "Database=testassessment;Data Source=localhost;User Id=LK;Password=123456;CharSet=utf8;port=3306";
 
-        public static String ConnStr
+        public static string ConnStr
         {
             get { return connString; }
         }
+
     }
 }

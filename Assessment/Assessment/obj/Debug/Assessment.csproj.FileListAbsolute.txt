@@ -20,3 +20,14 @@ C:\Users\LK\Desktop\Assessment Software\Assessment\Assessment\obj\Debug\Assessme
 C:\Users\LK\Desktop\Assessment Software\Assessment\Assessment\obj\Debug\Assessment.Properties.Resources.resources
 C:\Users\LK\Desktop\Assessment Software\Assessment\Assessment\obj\Debug\Assessment.UserManagement.resources
 C:\Users\LK\Desktop\Assessment Software\Assessment\Assessment\obj\Debug\Assessment.csproj.GenerateResource.Cache
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\bin\Debug\Assessment.exe.config
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.exe
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.pdb
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\bin\Debug\Assessment.exe
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\bin\Debug\Assessment.pdb
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.csprojResolveAssemblyReference.cache
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.MainForm.resources
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.Login.resources
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.Properties.Resources.resources
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.UserManagement.resources
+D:\GitHub\AssessmentSoftware\Assessment\Assessment\obj\Debug\Assessment.csproj.GenerateResource.Cache

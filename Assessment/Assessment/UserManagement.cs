@@ -18,11 +18,16 @@ namespace Assessment
             InitializeComponent();
         }
 
-        MySqlConnection conn; 
-        DataTable dt;         
+        MySqlConnection conn;
+        DataTable dt;
         MySqlDataAdapter da;
 
         private void UserManagement_Load(object sender, EventArgs e)
+        {
+            GridView_Bind();
+        }
+
+        private void GridView_Bind()
         {
             string connStr = PublicParms.ConnStr;
             string SqlStr = "select 编号,姓名,职称,工作单位,联系电话,是否管理员 from _tbuser";
@@ -38,7 +43,7 @@ namespace Assessment
                 GridView.DataSource = dt;
 
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -47,8 +52,6 @@ namespace Assessment
                 conn.Close();
             }
         }
-
-
         //绘制行号
         private void GridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e) 
         {
@@ -75,6 +78,24 @@ namespace Assessment
             */
         }
 
+        private void ChooseAll_Click(object sender, EventArgs e)
+        {
+            int counts = GridView.Rows.Count;
+            for (int i = 0; i < counts; i++)
+            {
+
+                if (GridView.Rows[i].Selected == false)
+                {
+                    GridView.Rows[i].Selected = true;
+                }
+            }
+        }
+
+        private void Copy_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetDataObject(GridView.GetClipboardContent());
+        }
+
         private void Update_Click(object sender, EventArgs e)
         {
             try
@@ -83,11 +104,10 @@ namespace Assessment
                 da.Update(dt);
                 MessageBox.Show("更新成功！");
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void DataGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
@@ -96,10 +116,10 @@ namespace Assessment
             {
                 if (e.RowIndex >= 0)
                 {
+                    GridView.ClearSelection();
                     //若行已是选中状态就不再进行设置 
                     if (GridView.Rows[e.RowIndex].Selected == false)
                     {
-                        GridView.ClearSelection();
                         GridView.Rows[e.RowIndex].Selected = true;
                     }
                     //只选中一行时设置活动单元格 
@@ -130,6 +150,7 @@ namespace Assessment
         {
             //this.dt = (DataTable)GridView.DataSource;
             DataRow dr = dt.NewRow();
+            dr[0] = null;
             dt.Rows.InsertAt(dr, GridView.CurrentRow.Index);
         }
 
@@ -138,6 +159,27 @@ namespace Assessment
             DataRow dr = dt.NewRow();
             dt.Rows.InsertAt(dr, GridView.CurrentRow.Index+1);
         }
-        
+
+        private void Refresh_Click(object sender, EventArgs e)
+        {
+            GridView_Bind();
+        }
+
+        private void Export_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            //设置文件类型
+            openDialog.Filter = "Excel 工作簿(*.xlsx)|*.xlsx|Excel 97-2003工作簿(*.xls)|*.xls";
+            //设置默认文件类型显示顺序
+            openDialog.FilterIndex = 1;
+            //保存对话框是否记忆上次打开的目录
+            openDialog.RestoreDirectory = true;
+            //点了保存按钮进入
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
+
     }
 }
